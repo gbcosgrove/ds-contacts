@@ -20,6 +20,25 @@ class Contact
   validates :last_name, presence: true
 end
 
+class ContactSerializer
+
+  def initialize(contact)
+    @contact = contact
+  end
+
+  def as_json(*)
+    data = {
+      id: @contact.id.to_s
+      firstName: @contact.first_name,
+      lastName: @contact.last_name,
+      phone: @contact.phone,
+      email: @contact.email
+    }
+    data[:errors] = @contacts.errors if @contacts.errors.any?
+    data
+  end
+end
+
 get '/' do
   'Welcome to the Contacts App'
 end
