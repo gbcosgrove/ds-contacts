@@ -5,4 +5,5 @@ gem 'sinatra-contrib'
 gem 'foreman'
 gem 'faker'
 gem 'shotgun'
+gem 'sinatra-cross_origin'
 
