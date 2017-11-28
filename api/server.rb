@@ -49,9 +49,6 @@ namespace '/api/v1' do
     content_type 'application/json'
   end
 
-  get 'contacts' do
-  end
-
   helpers do
     def base_url
       @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
@@ -77,5 +74,16 @@ namespace '/api/v1' do
       ContactSerializer.new(contact).to_json
     end
   end
+
+  get '/contacts' do
+    contacts = Contact.all
+
+    [:first_name, :last_name, :phone, :email].each do |filter|
+      contacts = contacts.send(filter, params[filter]) if params[filter]
+    end
+
+    contacts.map { |contact| ContactSerializer.new(contact) }.to_json
+  end
+
 end
 
