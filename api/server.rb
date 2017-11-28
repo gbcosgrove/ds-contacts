@@ -11,13 +11,13 @@ Mongoid.load! 'mongoid.config'
 class Contact
   include Mongoid::Document
 
-  field :firstName, type: String
-  field :lastName, type: String
+  field :first_name, type: String
+  field :last_name, type: String
   field :phone, type: String
   field :email, type: String
 
-  validates :firstName, presence: true
-  validates :lastName, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 end
 
 get '/' do
@@ -25,7 +25,7 @@ get '/' do
 end
 
 namespace '/api/v1' do
-  
+
   before do
     content_type 'application/json'
   end
