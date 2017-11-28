@@ -11,13 +11,13 @@ set :port, 3000
 class Contact
   include Mongoid::Document
 
-  field :first_name, type: String
-  field :last_name, type: String
+  field :firstName, type: String
+  field :lastName, type: String
   field :phone, type: String
   field :email, type: String
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :firstName, presence: true
+  validates :lastName, presence: true
 end
 
 class ContactSerializer
@@ -29,8 +29,8 @@ class ContactSerializer
   def as_json(*)
     data = {
       id: @contact.id.to_s,
-      firstName: @contact.first_name,
-      lastName: @contact.last_name,
+      firstName: @contact.firstName,
+      lastName: @contact.lastName,
       phone: @contact.phone,
       email: @contact.email
     }
@@ -78,7 +78,7 @@ namespace '/api/v1' do
   get '/contacts' do
     contacts = Contact.all
 
-    [:first_name, :last_name, :phone, :email].each do |filter|
+    [:firstName, :lastName, :phone, :email].each do |filter|
       contacts = contacts.send(filter, params[filter]) if params[filter]
     end
 
@@ -99,7 +99,7 @@ namespace '/api/v1' do
   end
 
   patch '/contacts/:id' do |id|
-    halt_if_not_found!
+    not_found!
     halt 422, serialize(contact) unless contact.update_attributes(json_params)
     serialize(contact)
   end
