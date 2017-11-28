@@ -85,5 +85,10 @@ namespace '/api/v1' do
     contacts.map { |contact| ContactSerializer.new(contact) }.to_json
   end
 
+  get '/contacts/:id' do |id|
+    not_found!
+    serialize(contact)
+  end
+
 end
 
