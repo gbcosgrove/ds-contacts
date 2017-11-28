@@ -18,7 +18,7 @@ Mongoid.load! 'mongoid.config'
 ## Add Required Gems
 echo "source 'https://rubygems.org'
 gem 'sinatra'
-gem 'mongoid'  
+gem 'mongoid'
 gem 'sinatra-contrib'
 gem 'foreman'
 gem 'faker'
@@ -41,10 +41,10 @@ require 'faker'
 if Contact.all == nil || []
   Contact.create_indexes
 
-  10.times do 
-    Contact.create({first_name: Faker::Name.first_name, 
-                    last_name: Faker::Name.last_name, 
-                    email: Faker::Internet.email, 
+  10.times do
+    Contact.create({first_name: Faker::Name.first_name,
+                    last_name: Faker::Name.last_name,
+                    email: Faker::Internet.email,
                     phone: Faker::PhoneNumber.cell_phone})
   end
 end
@@ -55,13 +55,13 @@ echo "
 class Contact
   include Mongoid::Document
 
-  field :firstName, type: String
-  field :lastName, type: String
+  field :first_name, type: String
+  field :last_name, type: String
   field :phone, type: String
   field :email, type: String
 
-  validates :firstName, presence: true
-  validates :lastName, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 end
 
 get '/' do
@@ -69,7 +69,7 @@ get '/' do
 end
 
 namespace '/api/v1' do
-  
+
   before do
     content_type 'application/json'
   end
