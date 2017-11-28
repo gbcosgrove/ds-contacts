@@ -6,7 +6,7 @@ require 'shotgun'
 Mongoid.load! 'mongoid.config'
 
 
-
+set :port, 3000
 
 class Contact
   include Mongoid::Document
