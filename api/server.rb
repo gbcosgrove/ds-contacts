@@ -98,5 +98,11 @@ namespace '/api/v1' do
     status 201
   end
 
+  patch '/contacts/:id' do |id|
+    halt_if_not_found!
+    halt 422, serialize(contact) unless contact.update_attributes(json_params)
+    serialize(contact)
+  end
+
 end
 
