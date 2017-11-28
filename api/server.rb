@@ -51,5 +51,31 @@ namespace '/api/v1' do
 
   get 'contacts' do
   end
+
+  helpers do
+    def base_url
+      @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+    end
+
+    def json_params
+      begin
+        JSON.parse(request.body.read)
+      rescue
+        halt 400, { message:'Invalid JSON Request' }.to_json
+      end
+    end
+
+    def contact
+      @contact ||= Contact.where(id: params[:id]).first
+    end
+
+    def not_found!
+      halt(404, { message: 'Contact Not Found' }.to_json) unless contact
+    end
+
+    def serialize(contact)
+      ContactSerializer.new(contact).to_json
+    end
+  end
 end
 
