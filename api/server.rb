@@ -90,5 +90,13 @@ namespace '/api/v1' do
     serialize(contact)
   end
 
+  post '/contacts' do
+    contact = Contact.new(json_params)
+    halt 422, serialize(contact) unless contact.save
+
+    response.headers['Location'] = "#{base_url}/api/v1/contacts/#{contact.id}"
+    status 201
+  end
+
 end
 
