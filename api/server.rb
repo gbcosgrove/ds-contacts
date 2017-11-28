@@ -28,13 +28,13 @@ class ContactSerializer
 
   def as_json(*)
     data = {
-      id: @contact.id.to_s
+      id: @contact.id.to_s,
       firstName: @contact.first_name,
       lastName: @contact.last_name,
       phone: @contact.phone,
       email: @contact.email
     }
-    data[:errors] = @contacts.errors if @contacts.errors.any?
+    data[:errors] = @contact.errors if @contact.errors.any?
     data
   end
 end
