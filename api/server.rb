@@ -104,5 +104,10 @@ namespace '/api/v1' do
     serialize(contact)
   end
 
+  delete '/contacts/:id' do |id|
+    contact.destroy if contact
+    status 204
+  end
+
 end
 
